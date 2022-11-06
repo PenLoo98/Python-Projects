@@ -93,28 +93,26 @@
     var myChart2 = new Chart(ctx2, {
         type: "line",
         data: {
-            labels: ["5月", "6月", "7月", "8月", "9月", "10月", "11月"],
+            labels: ["2016", "2017", "2018", "2019", "2020", "2021", "2022"],
             datasets: [{
-                    label: "KOSPI",
-                    data: [2687, 2659, 2305, 2452, 2416, 2209, 2335],
+                    label: "Salse",
+                    data: [15, 30, 55, 45, 70, 65, 85],
                     backgroundColor: "rgba(0, 156, 255, .5)",
                     fill: true
                 },
-                // {
-                //     label: "Revenue",
-                //     data: [99, 135, 170, 130, 190, 180, 270],
-                //     backgroundColor: "rgba(0, 156, 255, .3)",
-                //     fill: true
-                // }
+                {
+                    label: "Revenue",
+                    data: [99, 135, 170, 130, 190, 180, 270],
+                    backgroundColor: "rgba(0, 156, 255, .3)",
+                    fill: true
+                }
             ]
             },
         options: {
-            responsive: true,
-            y: {
-                suggestedMin: 500,
-            }
+            responsive: true
         }
     });
+    
 
 
     // Single Line Chart
@@ -203,8 +201,6 @@
             responsive: true
         }
     });
-
-    
 
     
 })(jQuery);
