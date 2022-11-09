@@ -8,6 +8,8 @@
     <meta content="" name="keywords">
     <meta content="" name="description">
 
+    
+
     <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
 
@@ -199,7 +201,7 @@
                                 <h6 class="mb-0">코스피 지수</h6>
                                 <a href="">Show All</a>
                             </div>
-                            <canvas id="salse-revenue"></canvas>
+                            <canvas id="kospi" style="width:100%"></canvas>
                         </div>
                     </div>
                     <div class="col-sm-12">
@@ -208,7 +210,7 @@
                                 <h6 class="mb-0">트리맵</h6>
                                 <a href="">Show All</a>
                             </div>
-                            <canvas id="treemap-chart"></canvas>
+                            <div id="treemap"></div>
                         </div>
                     </div>
                 </div>
@@ -437,8 +439,89 @@
     <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
     <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
+    <!-- line chart -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <script>
+        var xValues = ["5", "6", "7", "8", "9", "10", "11"];
+        var yValues = [2687, 2659, 2305, 2452, 2416, 2209, 2335];
+
+        new Chart("kospi", {
+            type: "line",
+            data: {
+                labels: xValues,
+                datasets: [{
+                        label: "KOSPI",
+                        data: yValues,
+                        backgroundColor: "rgba(0, 156, 255, .5)",
+                        lineTension: 0,
+                        borderColor: "rgba(0, 156, 255, 1)",
+                        borderWidth: 1,
+                    }],
+            },
+            options: {
+                scales: {
+                    yAxes: [{ticks: {min: 0, max:3000}}],
+                }
+            }
+            });
+    </script>
+
+    <!-- treemap chart -->
+    <head>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+          google.charts.load('current', {'packages':['treemap']});
+          google.charts.setOnLoadCallback(drawChart);
+          function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+              ['Location', 'Parent', 'Market trade volume (size)', 'Market increase/decrease (color)'],
+              ['Global',    null,                 0,                               0],
+              ['America',   'Global',             0,                               0],
+              ['Europe',    'Global',             0,                               0],
+              ['Asia',      'Global',             0,                               0],
+              ['Australia', 'Global',             0,                               0],
+              ['Africa',    'Global',             0,                               0],
+              ['Brazil',    'America',            11,                              10],
+              ['USA',       'America',            52,                              31],
+              ['Mexico',    'America',            24,                              12],
+              ['Canada',    'America',            16,                              -23],
+              ['France',    'Europe',             42,                              -11],
+              ['Germany',   'Europe',             31,                              -2],
+              ['Sweden',    'Europe',             22,                              -13],
+              ['Italy',     'Europe',             17,                              4],
+              ['UK',        'Europe',             21,                              -5],
+              ['China',     'Asia',               36,                              4],
+              ['Japan',     'Asia',               20,                              -12],
+              ['India',     'Asia',               40,                              63],
+              ['Laos',      'Asia',               4,                               34],
+              ['Mongolia',  'Asia',               1,                               -5],
+              ['Israel',    'Asia',               12,                              24],
+              ['Iran',      'Asia',               18,                              13],
+              ['Pakistan',  'Asia',               11,                              -52],
+              ['Egypt',     'Africa',             21,                              0],
+              ['S. Africa', 'Africa',             30,                              43],
+              ['Sudan',     'Africa',             12,                              2],
+              ['Congo',     'Africa',             10,                              12],
+              ['Zaire',     'Africa',             8,                               10]
+            ]);
+    
+            tree = new google.visualization.TreeMap(document.getElementById('treemap'));
+    
+            tree.draw(data, {
+              minColor: '#f00',
+              midColor: '#ddd',
+              maxColor: '#0d0',
+              headerHeight: 15,
+              fontColor: 'black',
+              showScale: true
+            });
+    
+          }
+        </script>
+
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+    
 </body>
 
 </html>

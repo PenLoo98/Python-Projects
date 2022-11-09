@@ -204,6 +204,24 @@
         }
     });
 
+    // var xValues = ["5月", "6月", "7月", "8月", "9月", "10月", "11月"];
+    // var yValues = [2687, 2659, 2305, 2452, 2416, 2209, 2335];
+
+    // KOSPI Chart
+    // var kospi = new Chart("kospi", {
+    //     type: "line",
+    //     data: {
+    //         labels: xValues,
+    //         datasets: [{
+    //                 // label: "KOSPI",
+    //                 data: yValues,
+    //                 backgroundColor: "rgba(0, 156, 255, .5)",
+    //                 // fill: true
+    //             }]
+    //         },
+    //     });
+
+
     
 
     
