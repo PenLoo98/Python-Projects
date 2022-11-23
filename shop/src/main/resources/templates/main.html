@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout1}">
+
+<div layout:fragment="content">
+  <script src="https://code.jquery.com/jquery-3.6.1.js"
+          integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous">
+  </script>
+
+  <script>
+        url_detail = "https://dapi.kakao.com/v3/search/book?target=title"
+        + "&query=" + `스프링부트`
+        + "&sort=accuracy"
+        + "&page=1"
+
+        $.ajax({
+                method: "GET",
+                url: url_detail,
+                Host: "dapi.kakao.com",
+                headers: {Authorization: "KakaoAK 38076f17ac8e4627600c07fab6a6d064"},
+                dataType: "json",
+                // headers: {Authorization: `KakaoAK ${REST_API_KEY}"`},
+            })
+                .done(function (msg) {
+                    console.log(msg);
+
+                    for(var i=0; i<msg.documents.length; i++){
+                        $(`.contents`).append(`<div class="content${i}"></div>`);
+                    }
+
+                    for(var i=0; i<msg.documents.length; i++){
+                        $(`.content${i}`).append(`<div class="cover_info${i}" style="float: left;padding: 10px;"></div>`);
+                        $(`.content${i}`).append(`<div class="book_info${i}" style="float: left;line-height: 24px"></div>`);
+                    }
+
+                    for(var i=0; i<msg.documents.length; i++){
+                        $(`.cover_info${i}`).append(`<a href="${msg.documents[i].url}" target='_blank'><img src=${msg.documents[i].thumbnail} alt="thumbnail"/></a>`);
+                        $(`.book_info${i}`).append(`<a href="${msg.documents[i].url}" target='_blank'><h2>${msg.documents[i].title}</h2></a>`);
+                        $(`.book_info${i}`).append(`<h2>${msg.documents[i].authors}(${msg.documents[i].datetime.substr(0,4)})</h2>`);
+                        $(`.book_info${i}`).append(`<h2><del style="color:gray">${msg.documents[i].price}</del> ${msg.documents[i].sale_price}원</h2>`);
+                        $(`.book_info${i}`).append(`<button class="addButton" id="addCart${i}">장바구니 담기</button>`);
+                    }
+                });
+
+        $(document).ready(function () {
+            $("#search").click(function () {
+                $("#contents_board").empty();
+
+                url_detail2 = "https://dapi.kakao.com/v3/search/book?target=title"
+                    + "&sort=accuracy"
+                    + "&page=1"
+
+                $.ajax({
+                    method: "GET",
+                    url: url_detail2,
+                    data: { query: $("#bookName").val() },
+                    Host: "dapi.kakao.com",
+                    dataType: "json",
+                    headers: { Authorization: "KakaoAK 38076f17ac8e4627600c07fab6a6d064" },
+                    // headers: {Authorization: `KakaoAK ${REST_API_KEY}"`},
+                })
+                    .done(function (msg) {
+                        console.log(msg);
+
+                        for (var i = 0; i < msg.documents.length; i++) {
+                            $(`.contents`).append(`<div class="content${i}"></div>`);
+                        }
+
+                        for (var i = 0; i < msg.documents.length; i++) {
+                            $(`.content${i}`).append(`<div class="cover_info${i}" style="float: left;padding: 10px;"></div>`);
+                            $(`.content${i}`).append(`<div class="book_info${i}" style="float: left;"></div>`);
+                        }
+
+                        for (var i = 0; i < msg.documents.length; i++) {
+                            $(`.cover_info${i}`).append(`<a href="${msg.documents[i].url}" target='_blank'><img src=${msg.documents[i].thumbnail} alt="thumbnail"/></a>`);
+                            $(`.book_info${i}`).append(`<a href="${msg.documents[i].url}" target='_blank'><h2>${msg.documents[i].title}</h2></a>`);
+                            $(`.book_info${i}`).append(`<h2>${msg.documents[i].authors}(${msg.documents[i].datetime.substr(0, 4)})</h2>`);
+                            $(`.book_info${i}`).append(`<h2><del style="color:gray">${msg.documents[i].price}</del> ${msg.documents[i].sale_price}원</h2>`);
+                            $(`.book_info${i}`).append(`<button class="addButton" id="addCart${i}">장바구니 담기</button>`);
+                        }
+                    });
+
+                $('#bookName').val('');
+            });
+        });
+
+    </script>
+  <div style="padding: 40px;">
+<!--    <img src="search.png" height="30px" style="float: left; padding: 5px">-->
+    <input id="bookName" type="text" placeholder="책 제목을 입력하세요" maxlength=255 value="" autocomplete="off" style="font-size: larger">
+    <button id="search" style="font-size: larger;padding-left: 10px;">검색</button>
+  </div>
+  <div id="contents_board" class="contents" style="display: grid;width:100%"></div>
+
+</div>
+
+
+</html>
