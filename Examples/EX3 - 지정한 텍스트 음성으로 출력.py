@@ -23,7 +23,7 @@ def getText2VoiceUrl(inText):
     stub = gigagenieRPC_pb2_grpc.GigagenieStub(channel)
 
     message = gigagenieRPC_pb2.reqText()
-    message.lang=0
+    message.lang=0 # lang=0, 한국어
     message.mode=0
     message.text=inText
     response = stub.getText2VoiceUrl(message) 

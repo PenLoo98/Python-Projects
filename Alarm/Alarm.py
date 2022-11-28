@@ -1,7 +1,7 @@
 # 라이브러리 불러오기 
 # 기가지니 호출
 # 알람 시간 설정
-# 알람 해제
+# 알람 울림,해제
 
 ## 필요한 파일 다운 받기: 음성, 호출어 모델
 
@@ -91,33 +91,29 @@ def test(key_word = '기가지니'):
 import time
 import datetime
 
-def set_alarm():
+def set_alarm(alarm_time: int):
     now = datetime.datetime.now()
     print("현재 시간은 %d:%d:%d 입니다." % (now.hour, now.minute, now.second))
-    print(time.strftime('%c', time.localtime(time.time())))
+    after = now + datetime.timedelta(minutes=alarm_time)
+    print("알람 시간은 %d:%d:%d 입니다." % (after.hour, after.minute, after.second))
 
+    while(now.hour != after.hour or now.minute != after.minute):
+        now = datetime.datetime.now()
+        print("현재 시간은 %d:%d:%d 입니다." % (now.hour, now.minute, now.second))
+        time.sleep(15)
 
-
-
-
-
-
-
-### 알람 해제
-
-
-
-
-
-### 알람 울림/해제
-
-
-
-
+    # 버튼을 누르면 알람 해제
+    while btn_status == False:
+        # print("알람이 울립니다.")
+        MS.play_file("wav/alarm bbbb.wav")
+    print("알람이 해제되었습니다.")
+    
 
 ### 메인 함수
 def main(): 
-    # test()
-    set_alarm()
+    test()
+
+    # 10분 뒤에 알람이 울립니다.
+    set_alarm(10)
 if __name__ == '__main__': 
     main()
