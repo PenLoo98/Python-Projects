@@ -3,6 +3,8 @@
 # 알람 시간 설정
 # 알람 해제
 
+## 필요한 파일 다운 받기: 음성, 호출어 모델
+
 
 ### 라이브러리 불러오기
 #!/usr/bin/env python 
@@ -17,6 +19,16 @@ import MicrophoneStream as MS
 KWSID = ['기가지니', '지니야', '친구야', '자기야'] 
 RATE = 16000
 CHUNK = 512
+
+
+import grpc
+import gigagenieRPC_pb2
+import gigagenieRPC_pb2_grpc
+import user_auth as UA
+import os
+HOST = 'gate.gigagenie.ai' 
+PORT = 4080
+
 
 GPIO.setmode(GPIO.BOARD) # GPIO 핀 설정 보드번호로 설정
 GPIO.setwarnings(False) # setwarning false 오류방지
@@ -43,6 +55,7 @@ asound.snd_lib_error_set_handler(c_error_handler)
 
 
 ### 기가지니 호출
+
 # 마이크에서 음성을 받아서 호출어를 인식하는 함수
 def detect(): 
     with MS.MicrophoneStream(RATE, CHUNK) as stream: 
@@ -60,11 +73,37 @@ def detect():
                 MS.play_file("../data/sample_sound.wav") # 호출어 인식시 음성 출력
                 return 200 
 
-
-
+def test(key_word = '기가지니'):
+    rc = ktkws.init("../data/kwsmodel.pack") 
+    print ('init rc = %d' % (rc))
+    rc = ktkws.start()
+    print ('start rc = %d' % (rc))
+    print ('\n호출어를 불러보세요~\n')
+    ktkws.set_keyword(KWSID.index(key_word)) 
+    rc = detect()
+    print ('detect rc = %d' % (rc))
+    print ('\n\n호출어가 정상적으로 인식되었습니다.\n\n') 
+    ktkws.stop()
+    return rc
 
 
 ### 알람 시간 설정
+import time
+import datetime
+
+def set_alarm():
+    now = datetime.datetime.now()
+    print("현재 시간은 %d:%d:%d 입니다." % (now.hour, now.minute, now.second))
+    print(time.strftime('%c', time.localtime(time.time())))
+
+
+
+
+
+
+
+
+### 알람 해제
 
 
 
@@ -76,4 +115,9 @@ def detect():
 
 
 
-
+### 메인 함수
+def main(): 
+    # test()
+    set_alarm()
+if __name__ == '__main__': 
+    main()
