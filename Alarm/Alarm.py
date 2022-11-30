@@ -29,6 +29,9 @@ import os
 HOST = 'gate.gigagenie.ai' 
 PORT = 4080
 
+import time
+import datetime
+
 
 GPIO.setmode(GPIO.BOARD) # GPIO 핀 설정 보드번호로 설정
 GPIO.setwarnings(False) # setwarning false 오류방지
@@ -70,10 +73,13 @@ def detect():
 
             # 마이크에서 음성을 받아서 호출어를 인식하면 1을 리턴
             if (rc == 1): 
-                MS.play_file("../data/sample_sound.wav") # 호출어 인식시 음성 출력
-                return 200 
+                # d
+                MS.play_file("wav/ask alarm.wav") # 호출어 인식시 음성 출력
+                return 200
 
-def test(key_word = '기가지니'):
+             
+
+def listen(key_word = '기가지니'):
     rc = ktkws.init("../data/kwsmodel.pack") 
     print ('init rc = %d' % (rc))
     rc = ktkws.start()
@@ -81,15 +87,15 @@ def test(key_word = '기가지니'):
     print ('\n호출어를 불러보세요~\n')
     ktkws.set_keyword(KWSID.index(key_word)) 
     rc = detect()
+    MS.play_file("wav/ask alarm.wav")
     print ('detect rc = %d' % (rc))
-    print ('\n\n호출어가 정상적으로 인식되었습니다.\n\n') 
+    # print ('\n\n호출어가 정상적으로 인식되었습니다.\n\n') 
     ktkws.stop()
     return rc
 
 
 ### 알람 시간 설정
-import time
-import datetime
+
 
 def set_alarm(alarm_time: int):
     now = datetime.datetime.now()
@@ -97,6 +103,7 @@ def set_alarm(alarm_time: int):
     after = now + datetime.timedelta(minutes=alarm_time)
     print("알람 시간은 %d:%d:%d 입니다." % (after.hour, after.minute, after.second))
 
+    # 알람 시간 설정
     while(now.hour != after.hour or now.minute != after.minute):
         now = datetime.datetime.now()
         print("현재 시간은 %d:%d:%d 입니다." % (now.hour, now.minute, now.second))
@@ -111,9 +118,10 @@ def set_alarm(alarm_time: int):
 
 ### 메인 함수
 def main(): 
-    test()
+    listen()
 
     # 10분 뒤에 알람이 울립니다.
     set_alarm(10)
+
 if __name__ == '__main__': 
     main()
