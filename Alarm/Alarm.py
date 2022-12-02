@@ -74,6 +74,7 @@ def detect():
             # 마이크에서 음성을 받아서 호출어를 인식하면 1을 리턴
             if (rc == 1): 
                 # d
+                print("음성이 감지되었습니다.")
                 MS.play_file("wav/ask alarm.wav") # 호출어 인식시 음성 출력
                 return 200
 

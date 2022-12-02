@@ -13,6 +13,8 @@ def set_alarm(alarm_time: int):
         print("현재 시간은 %d:%d:%d 입니다." % (now.hour, now.minute, now.second))
         time.sleep(15)
 
-    print("알람이 울립니다.")
+    # print("알람이 울립니다.")
+    
 
+# 10분 뒤에 알람이 울립니다.
 set_alarm(10)
