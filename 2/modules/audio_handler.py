@@ -21,12 +21,12 @@ class TTS:
         return thr
 
 class STT(sr.Recognizer):
-    def __init__(self, timeout=5, phase=7, lang: str = "ko-KR"):
+    def __init__(self, timeout=7, phrase=7,lang: str = "ko-KR"):
     
         self.lang = lang
         super().__init__()
 
-    def get_text(self, timeout=5, phrase=7):
+    def get_text(self, timeout=7, phrase=7):
         try:
             with sr.Microphone() as source:
                 audio = self.listen(source, timeout=timeout,

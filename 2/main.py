@@ -1,6 +1,8 @@
 from modules.audio_handler import TTS,STT
 from modules.youtube import YoutubePlayer
-from modules.schedulelr import set_alarm
+from modules.schedulelr import Alarming
+
+
 
 def main():
     stt = STT()
@@ -8,14 +10,14 @@ def main():
     youtube = YoutubePlayer()
 
     while True:
-        recog = stt.get_text(timeout=2, phrase=3)
+        recog = stt.get_text(timeout=7, phrase=7)
         if not recog in ["지니야", "기가지니"]:
             continue
         print("start command mode")
         if youtube.is_set():
             youtube.pause()
         tts.direct_tts("네")
-        command = stt.get_text(timeout=2, phrase=3)
+        command = stt.get_text(timeout=7, phrase=7)
         if command is None:
             tts.direct_tts("잘 못알아들었어요")
             continue
@@ -30,16 +32,7 @@ def main():
                 tts.direct_tts("오디오를 종료합니다.")
                 youtube.stop()
         elif "알람" in command:
-            try:
-                if "시" or "분" in command:
-                    hr = int(command[0])
-                    min = int(command[2])
-                    print(f"설정시간: {hr}시 {min}분")
-                    set_alarm()
-            except(ValueError):
-                # tts.direct_tts("무슨 말인지 모르겠어요")
-                set_alarm()
-                continue
+            Alarming().set_alarm()
         if youtube.is_set():
             youtube.play()
                 
