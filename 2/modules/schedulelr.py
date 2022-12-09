@@ -1,8 +1,6 @@
-# import datetime
-# from apscheduler.schedulers.blocking import BlockingScheduler
 import time
 from apscheduler.schedulers.background import BackgroundScheduler
-from audio_handler import TTS,STT
+from modules.audio_handler import TTS,STT
 import playsound
 
 # sched = BlockingScheduler()
@@ -28,9 +26,7 @@ class set_alarm():
     while True:
         time.sleep(5)
 
-# txt = "오후 4시 30분"
-# result = txt.split(str,int)
-# print(result)
+
 
 
 
