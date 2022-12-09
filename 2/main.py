@@ -10,16 +10,16 @@ def main():
     youtube = YoutubePlayer()
 
     while True:
-        recog = stt.get_text(timeout=7, phrase=7)
+        recog = stt.get_text(timeout=5, phrase=5)
         if not recog in ["지니야", "기가지니"]:
             continue
         print("start command mode")
         if youtube.is_set():
             youtube.pause()
         tts.direct_tts("네")
-        command = stt.get_text(timeout=7, phrase=7)
+        command = stt.get_text(timeout=5, phrase=5)
         if command is None:
-            tts.direct_tts("잘 못알아들었어요")
+            tts.direct_tts("잘 못알17아들었어요")
             continue
         print(f"인식된 텍스트: {command}")
         if "유튜브" in command:
