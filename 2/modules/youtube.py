@@ -7,10 +7,6 @@ import time
 DEVELOPER_KEY = 'AIzaSyDy_thKnnsXEaNi39Un4-4tTt6rcySDzag'
 YOUTUBE_API_SERVICE_NAME = 'youtube'
 YOUTUBE_API_VERSION = 'v3'
-# Define VLC player
-
-
-
 
 class YoutubePlayer:
     def __init__(self):
