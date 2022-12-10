@@ -27,7 +27,7 @@ def main():
                 thr.join()
                 
             elif "중지" in command or "꺼" in command:
-                tts.direct_tts("오디오를 종료합니다.")
+                tts.direct_tts("노래를 중지합니다.")
                 youtube.stop()
         elif "알람" in command:
             Alarming().set_alarm()
