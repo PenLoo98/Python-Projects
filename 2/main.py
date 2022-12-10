@@ -1,8 +1,6 @@
 from modules.audio_handler import TTS,STT
 from modules.youtube import YoutubePlayer
-from modules.schedulelr import Alarming
-
-
+from modules.scheduler import Alarming
 
 def main():
     stt = STT()
@@ -19,12 +17,12 @@ def main():
         tts.direct_tts("네")
         command = stt.get_text(timeout=5, phrase=5)
         if command is None:
-            tts.direct_tts("잘 못알17아들었어요")
+            tts.direct_tts("잘 못알아들었어요")
             continue
         print(f"인식된 텍스트: {command}")
         if "유튜브" in command:
             if "재생" in command or "틀어" in command:
-                thr = tts.direct_tts("유튜브에서 오디오를 재생합니다.", wait=False)
+                thr = tts.direct_tts("노래를 재생합니다.", wait=False)
                 youtube.set_with_text("음악")
                 thr.join()
                 
