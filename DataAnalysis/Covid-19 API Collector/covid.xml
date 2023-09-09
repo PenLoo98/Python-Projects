@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<response>
+<header>
+<resultcode>00</resultcode>
+<resultmsg>NORMAL SERVICE</resultmsg>
+</header>
+<body>
+<items>
+<item>
+<accdefrate>1.753626397</accdefrate>
+<accexamcnt>623069</accexamcnt>
+<accexamcompcnt>614384</accexamcompcnt>
+<carecnt>1616</carecnt>
+<dpntcnt>8910</dpntcnt>
+<gpntcnt>248</gpntcnt>
+<hpntcnt>10774</hpntcnt>
+<resutlnegcnt>603610</resutlnegcnt>
+<statusdt>20200501</statusdt>
+<statustime>00:00</statustime>
+<upntcnt>8685</upntcnt>
+</item>
+</items>
+<numofrows>500</numofrows>
+<pageno>1</pageno>
+<totalcount>1202</totalcount>
+</body>
+</response>
