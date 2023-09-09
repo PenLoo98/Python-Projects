@@ -1,1 +1,1 @@
-this is repository in any projects
+the Projects that use Python like .py and .ipynb
